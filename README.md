@@ -215,3 +215,176 @@ $ defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 <Record type="HKCategoryTypeIdentifierMindfulSession" sourceName="my’s Apple Watch" sourceVersion="10.6.1" creationDate="2025-01-31 08:43:23 +0900" startDate="2025-01-31 08:38:20 +0900" endDate="2025-01-31 08:43:20 +0900" value="HKCategoryValueNotApplicable">
 </Record>
 ```
+
+## HKCategoryTypeIdentifierSleepAnalysis
+
+### 説明
+`HKCategoryTypeIdentifierSleepAnalysis` は、Appleのヘルスデータにおける睡眠の記録を表します。記録されたデータは、睡眠の開始時間と終了時間、および睡眠の状態（浅い睡眠、深い睡眠、覚醒など）を示します。
+
+### 取得されるカラム
+
+| カラム名 | データ型 | 説明 | データ例 |
+|----------|---------|------|---------|
+| value | String | 睡眠の状態を示すカテゴリ値 | `HKCategoryValueSleepAnalysisAsleepUnspecified` |
+
+### value のカテゴリ値
+
+| カテゴリ値 | 説明 |
+|------------|------|
+| HKCategoryValueSleepAnalysisInBed | ベッドにいる状態 |
+| HKCategoryValueSleepAnalysisAsleepUnspecified | 指定なしの睡眠状態 |
+| HKCategoryValueSleepAnalysisAwake | 覚醒状態 |
+| HKCategoryValueSleepAnalysisAsleepCore | コア睡眠 |
+| HKCategoryValueSleepAnalysisAsleepDeep | 深い睡眠 |
+| HKCategoryValueSleepAnalysisAsleepREM | レム睡眠 |
+
+### RecordデータのXML形式
+```xml
+<Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="AutoSleep" sourceVersion="6.14.0" creationDate="2025-01-18 19:45:22 +0900" startDate="2025-01-18 06:59:00 +0900" endDate="2025-01-18 08:13:00 +0900" value="HKCategoryValueSleepAnalysisAsleepUnspecified">
+</Record>
+<Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="my’s Apple Watch" sourceVersion="10.6.1" creationDate="2025-01-18 09:31:50 +0900" startDate="2025-01-18 08:03:53 +0900" endDate="2025-01-18 08:32:23 +0900" value="HKCategoryValueSleepAnalysisAsleepREM">
+  <MetadataEntry key="HKTimeZone" value="Asia/Tokyo"/>
+</Record>
+<Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="my’s Apple Watch" sourceVersion="10.6.1" creationDate="2025-01-18 09:31:50 +0900" startDate="2025-01-18 08:32:23 +0900" endDate="2025-01-18 09:12:53 +0900" value="HKCategoryValueSleepAnalysisAsleepCore">
+  <MetadataEntry key="HKTimeZone" value="Asia/Tokyo"/>
+</Record>
+<Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="my’s Apple Watch" sourceVersion="10.6.1" creationDate="2025-01-18 09:31:50 +0900" startDate="2025-01-18 06:40:23 +0900" endDate="2025-01-18 09:12:53 +0900" value="HKCategoryValueSleepAnalysisInBed">
+  <MetadataEntry key="HKTimeZone" value="Asia/Tokyo"/>
+</Record>
+<Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="my’s Apple Watch" sourceVersion="10.6.1" creationDate="2025-01-18 09:31:50 +0900" startDate="2025-01-18 09:12:53 +0900" endDate="2025-01-18 09:13:23 +0900" value="HKCategoryValueSleepAnalysisAwake">
+  <MetadataEntry key="HKTimeZone" value="Asia/Tokyo"/>
+</Record>
+```
+
+## HKQuantityTypeIdentifierActiveEnergyBurned
+
+### 説明
+`HKQuantityTypeIdentifierActiveEnergyBurned` は、Appleのヘルスデータにおいてアクティブエネルギー消費量（カロリー）を記録するデータタイプです。このデータは、運動や日常活動によって消費されたカロリー量を示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明            | データ例  |
+|----------|---------|------------------|----------|
+| value    | Double  | 消費カロリー（kcal）| `0.156`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は消費されたカロリー量（kcal）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierActiveEnergyBurned" sourceName="my’s Apple Watch" sourceVersion="10.6.1" device="<<HKDevice: 0x30378a210>, name:Apple Watch, manufacturer:Apple Inc., model:Watch, hardware:Watch6,10, software:10.6.1, creation date:2024-08-24 17:12:03 +0000>" unit="kcal" creationDate="2025-01-01 00:33:57 +0900" startDate="2025-01-01 00:20:30 +0900" endDate="2025-01-01 00:22:13 +0900" value="0.156">
+</Record>
+```
+
+## HKQuantityTypeIdentifierAppleExerciseTime
+
+### 説明
+`HKQuantityTypeIdentifierAppleExerciseTime` は、Appleのヘルスデータにおいて運動時間（分）を記録するデータタイプです。このデータは、Apple Watch などのデバイスによって検出された運動の継続時間を示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明            | データ例  |
+|----------|---------|------------------|----------|
+| value    | Double  | 運動時間（分）    | `1`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は運動時間（分）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierAppleExerciseTime" sourceName="my’s Apple Watch" sourceVersion="10.6.1" device="<<HKDevice: 0x3034fe7b0>, name:Apple Watch, manufacturer:Apple Inc., model:Watch, hardware:Watch6,10, software:10.6.1, creation date:2024-08-24 17:12:03 +0000>" unit="min" creationDate="2025-01-01 01:19:12 +0900" startDate="2025-01-01 01:15:00 +0900" endDate="2025-01-01 01:16:00 +0900" value="1">
+</Record>
+```
+
+## HKQuantityTypeIdentifierAppleStandTime
+
+### 説明
+`HKQuantityTypeIdentifierAppleStandTime` は、Appleのヘルスデータにおいて起立時間（分）を記録するデータタイプです。このデータは、Apple Watch などのデバイスによって検出されたスタンド時間を示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明            | データ例  |
+|----------|---------|------------------|----------|
+| value    | Double  | スタンド時間（分） | `1`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` はスタンド時間（分）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierAppleStandTime" sourceName="my’s Apple Watch" sourceVersion="2890.16.23.1.1" unit="min" creationDate="2025-01-01 00:52:11 +0900" startDate="2025-01-01 00:45:00 +0900" endDate="2025-01-01 00:50:00 +0900" value="1">
+</Record>
+```
+
+## HKQuantityTypeIdentifierAppleWalkingSteadiness
+
+### 説明
+`HKQuantityTypeIdentifierAppleWalkingSteadiness` は、Appleのヘルスデータにおいて歩行の安定性を記録するデータタイプです。このデータは、iPhone によって検出された歩行の安定性をパーセンテージ（%）で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                    | データ例  |
+|----------|---------|--------------------------|----------|
+| value    | Double  | 歩行の安定性（%）        | `0.97279`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は歩行の安定性をパーセンテージ（%）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierAppleWalkingSteadiness" sourceName="hellomyzn13" sourceVersion="2890.16.23" device="<<HKDevice: 0x3034fc320>, name:iPhone, manufacturer:Apple Inc., model:iPhone, hardware:iPhone16,1, software:17.6.1, creation date:2024-08-31 17:17:55 +0000>" unit="%" creationDate="2025-01-13 10:36:28 +0900" startDate="2025-01-06 09:00:00 +0900" endDate="2025-01-13 09:00:00 +0900" value="0.97279">
+  <MetadataEntry key="HKAlgorithmVersion" value="2"/>
+</Record>
+```
+
+## HKQuantityTypeIdentifierBasalEnergyBurned
+
+### 説明
+`HKQuantityTypeIdentifierBasalEnergyBurned` は、Appleのヘルスデータにおいて基礎代謝によるエネルギー消費量（カロリー）を記録するデータタイプです。このデータは、身体が安静時に消費するエネルギー量を示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                    | データ例  |
+|----------|---------|--------------------------|----------|
+| value    | Double  | 基礎代謝による消費カロリー（kcal） | `17.354`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は基礎代謝によるエネルギー消費量（kcal）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierBasalEnergyBurned" sourceName="my’s Apple Watch" sourceVersion="10.6.1" device="<<HKDevice: 0x3037ea3a0>, name:Apple Watch, manufacturer:Apple Inc., model:Watch, hardware:Watch6,10, software:10.6.1, creation date:2024-08-24 17:12:03 +0000>" unit="kcal" creationDate="2025-01-01 00:23:55 +0900" startDate="2025-01-01 00:03:40 +0900" endDate="2025-01-01 00:20:30 +0900" value="17.354">
+</Record>
+```
+
+## HKQuantityTypeIdentifierBodyFatPercentage
+
+### 説明
+`HKQuantityTypeIdentifierBodyFatPercentage` は、Appleのヘルスデータにおいて体脂肪率を記録するデータタイプです。このデータは、スマートスケールや他の測定デバイスを使用して測定された体脂肪率をパーセンテージ（%）で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | 体脂肪率（%）         | `0.162`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は体脂肪率をパーセンテージ（%）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierBodyFatPercentage" sourceName="eufy Life" sourceVersion="230" unit="%" creationDate="2025-01-30 08:52:53 +0900" startDate="2025-01-30 08:52:52 +0900" endDate="2025-01-30 08:52:52 +0900" value="0.162">
+</Record>
+```
