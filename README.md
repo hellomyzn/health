@@ -388,3 +388,178 @@ $ defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 <Record type="HKQuantityTypeIdentifierBodyFatPercentage" sourceName="eufy Life" sourceVersion="230" unit="%" creationDate="2025-01-30 08:52:53 +0900" startDate="2025-01-30 08:52:52 +0900" endDate="2025-01-30 08:52:52 +0900" value="0.162">
 </Record>
 ```
+
+## HKQuantityTypeIdentifierBodyMass
+
+### 説明
+`HKQuantityTypeIdentifierBodyMass` は、Appleのヘルスデータにおいて体重を記録するデータタイプです。このデータは、スマートスケールや他の測定デバイスを使用して測定された体重をキログラム（kg）で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | 体重（kg）          | `58.8`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は体重をキログラム（kg）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierBodyMass" sourceName="eufy Life" sourceVersion="230" unit="kg" creationDate="2025-01-30 08:52:53 +0900" startDate="2025-01-30 08:52:52 +0900" endDate="2025-01-30 08:52:52 +0900" value="58.8">
+</Record>
+```
+
+## HKQuantityTypeIdentifierBodyMassIndex
+
+### 説明
+`HKQuantityTypeIdentifierBodyMassIndex` は、AppleのヘルスデータにおいてBMI（ボディマス指数）を記録するデータタイプです。このデータは、体重と身長を基に計算されたBMI値を示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | BMI（ボディマス指数） | `20.8`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` はBMIの数値として記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierBodyMassIndex" sourceName="eufy Life" sourceVersion="230" unit="count" creationDate="2025-01-30 08:52:53 +0900" startDate="2025-01-30 08:52:52 +0900" endDate="2025-01-30 08:52:52 +0900" value="20.8">
+</Record>
+```
+
+## HKQuantityTypeIdentifierDistanceCycling
+
+### 説明
+`HKQuantityTypeIdentifierDistanceCycling` は、Appleのヘルスデータにおいてサイクリング（自転車移動）の距離を記録するデータタイプです。このデータは、Apple Watch などのデバイスによって計測された移動距離をキロメートル（km）で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | サイクリング距離（km） | `0.126904`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` はサイクリングの距離をキロメートル（km）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierDistanceCycling" sourceName="my’s Apple Watch" sourceVersion="10.6.1" device="<<HKDevice: 0x3034fe170>, name:Apple Watch, manufacturer:Apple Inc., model:Watch, hardware:Watch6,10, software:10.6.1, creation date:2024-08-24 17:12:03 +0000>" unit="km" creationDate="2025-01-03 18:26:56 +0900" startDate="2025-01-03 18:24:30 +0900" endDate="2025-01-03 18:25:00 +0900" value="0.126904">
+</Record>
+```
+
+## HKQuantityTypeIdentifierDistanceWalkingRunning
+
+### 説明
+`HKQuantityTypeIdentifierDistanceWalkingRunning` は、Appleのヘルスデータにおいてウォーキングやランニングの移動距離を記録するデータタイプです。このデータは、Apple Watch や iPhone などのデバイスによって計測された歩行またはランニングの距離をキロメートル（km）で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | 歩行・ランニング距離（km） | `0.04142`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は歩行またはランニングの移動距離をキロメートル（km）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierDistanceWalkingRunning" sourceName="hellomyzn13" sourceVersion="17.6.1" device="<<HKDevice: 0x3037e96d0>, name:iPhone, manufacturer:Apple Inc., model:iPhone, hardware:iPhone16,1, software:17.6.1, creation date:2024-08-31 17:17:55 +0000>" unit="km" creationDate="2025-01-01 00:58:45 +0900" startDate="2025-01-01 00:47:42 +0900" endDate="2025-01-01 00:56:45 +0900" value="0.04142">
+</Record>
+```
+
+## HKQuantityTypeIdentifierEnvironmentalAudioExposure
+
+### 説明
+`HKQuantityTypeIdentifierEnvironmentalAudioExposure` は、Appleのヘルスデータにおいて周囲の環境音の音量レベルを記録するデータタイプです。このデータは、Apple Watch などのデバイスによって測定された環境音の騒音レベルをデシベル（dBASPL）で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | 環境音の音量レベル（dBASPL） | `71.7797`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は環境音の騒音レベルをデシベル（dBASPL）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierEnvironmentalAudioExposure" sourceName="my’s Apple Watch" sourceVersion="10.6.1" device="<<HKDevice: 0x3037e4e60>, name:Apple Watch, manufacturer:Apple Inc., model:Watch, hardware:Watch6,10, software:10.6.1, creation date:2024-08-24 17:12:03 +0000>" unit="dBASPL" creationDate="2025-01-01 00:28:18 +0900" startDate="2025-01-01 00:23:43 +0900" endDate="2025-01-01 00:53:43 +0900" value="71.7797">
+</Record>
+```
+
+## HKQuantityTypeIdentifierEnvironmentalSoundReduction
+
+### 説明
+`HKQuantityTypeIdentifierEnvironmentalSoundReduction` は、Appleのヘルスデータにおいて周囲の環境音の低減量を記録するデータタイプです。このデータは、Apple Watch などのデバイスによって測定された環境音の減少レベルをデシベル（dBASPL）で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | 環境音の低減量（dBASPL） | `16.97`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は環境音の低減量をデシベル（dBASPL）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierEnvironmentalSoundReduction" sourceName="my’s Apple Watch" sourceVersion="10.6.1" device="<<HKDevice: 0x3037e4fa0>, name:Apple Watch, manufacturer:Apple Inc., model:Watch, hardware:Watch6,10, software:10.6.1, creation date:2024-08-24 17:12:03 +0000>" unit="dBASPL" creationDate="2025-02-08 08:38:26 +0900" startDate="2025-02-08 08:32:02 +0900" endDate="2025-02-08 09:00:07 +0900" value="16.97">
+</Record>
+```
+
+## HKQuantityTypeIdentifierFlightsClimbed
+
+### 説明
+`HKQuantityTypeIdentifierFlightsClimbed` は、Appleのヘルスデータにおいて登った階数を記録するデータタイプです。このデータは、Apple Watch や iPhone などのデバイスによって計測された階段の上昇回数を「フロア数（count）」で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | 登った階数（count） | `2`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` は登った階数を「フロア数（count）」として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierFlightsClimbed" sourceName="hellomyzn13" sourceVersion="17.6.1" device="<<HKDevice: 0x3034fcbe0>, name:iPhone, manufacturer:Apple Inc., model:iPhone, hardware:iPhone16,1, software:17.6.1, creation date:2024-08-31 17:17:55 +0000>" unit="count" creationDate="2025-01-01 01:26:40 +0900" startDate="2025-01-01 01:15:31 +0900" endDate="2025-01-01 01:22:20 +0900" value="2">
+</Record>
+```
+
+## HKQuantityTypeIdentifierHeadphoneAudioExposure
+
+### 説明
+`HKQuantityTypeIdentifierHeadphoneAudioExposure` は、Appleのヘルスデータにおいてヘッドフォンを使用した際の音量レベルを記録するデータタイプです。このデータは、AirPods や EarPods などのデバイスによって測定された音量レベルをデシベル（dBASPL）で示します。
+
+### 取得されるカラム
+
+| カラム名  | データ型   | 説明                 | データ例  |
+|----------|---------|---------------------|----------|
+| value    | Double  | ヘッドフォン音量レベル（dBASPL） | `65.1861`  |
+
+### value のカテゴリ値
+
+このデータタイプでは、`value` はヘッドフォンの音量レベルをデシベル（dBASPL）として数値で記録されます。そのため、特定のカテゴリ値は存在しません。
+
+### RecordデータのXML形式
+
+```xml
+<Record type="HKQuantityTypeIdentifierHeadphoneAudioExposure" sourceName="hellomyzn13" sourceVersion="17.6.1" device="<<HKDevice: 0x3034d64e0>, name:AirPods Pro, manufacturer:Apple Inc., model:0x200e, localIdentifier:38:EC:0D:BF:32:C6-tacl, creation date:2020-06-01 06:06:25 +0000>" unit="dBASPL" creationDate="2025-01-05 12:01:21 +0900" startDate="2025-01-05 11:51:18 +0900" endDate="2025-01-05 11:51:36 +0900" value="65.1861">
+```
