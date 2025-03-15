@@ -56,3 +56,4 @@
 | startDate    | datetime | 記録が開始された日時（該当する時間の開始） (yyyy-mm-dd hh:mm:ss +h:00) | 2025-01-01 07:00:00 +0900 |
 | endDate      | datetime | 記録が終了した日時（該当する時間の終了） (yyyy-mm-dd hh:mm:ss +h:00)   | 2025-01-01 08:00:00 +0900 |
 | duration     | float    | `startDate` と `endDate` の差分（秒単位の継続時間）                    | 3600.0                    |
+| unit         | str      | `value`の単位                                                          | "count/min"               |
