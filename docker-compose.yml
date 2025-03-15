@@ -11,7 +11,7 @@ services:
     tty: true
     volumes:
       - type: bind
-        source: ./
+        source: ./src
         target: /opt/work
       - type: bind
         source: ./docs
