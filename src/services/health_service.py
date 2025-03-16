@@ -8,6 +8,8 @@ from datetime import datetime, timezone, timedelta
 from tqdm import tqdm
 from models.health_record import HealthRecord
 from repositories import HealthXMLRepository
+from repositories.health.HKCategoryTypeIdentifierAppleStandHour import GssHKCategoryTypeIdentifierAppleStandHourRepository
+
 
 JST = timezone(timedelta(hours=9))
 
@@ -41,6 +43,11 @@ class HealthService:
     def __init__(self, use_google_sheets=False, spreadsheet_id=None):
         self.xml_repo = HealthXMLRepository()
         # Google Sheets 連携が必要な場合は別途対応
+        self.gss_repo = GssHKCategoryTypeIdentifierAppleStandHourRepository()
+
+    def hoge(self):
+        print(self.gss_repo)
+        return 
 
     def parse_and_save(self, xml_file):
         """
