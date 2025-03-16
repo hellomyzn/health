@@ -1,15 +1,31 @@
-class HKCategoryTypeIdentifierAppleStandHour:
-    """HKCategoryTypeIdentifierAppleStandHour のデータ処理"""
+"""repositories.health.types.HKCategoryTypeIdentifierAppleStandHourGSS"""
+from repositories import GSSBase
+from repositories import ModelAdapter
+from repositories.health import Health
+from models import HealthRecord
+
+
+class HKCategoryTypeIdentifierAppleStandHourGSS(Health, GSSBase):
+    """HKCategoryTypeIdentifierAppleStandHour のgoogle spread sheetデータ処理"""
 
     SHEET_NAME = "AppleStandHour"
-
-    # このデータ固有のカラム
-    EXTRA_COLUMNS = ["value"]
 
     CATEGORY_VALUES = {
         "HKCategoryValueAppleStandHourIdle": 0,
         "HKCategoryValueAppleStandHourStood": 1
     }
+
+    def __init__(self, sheet_name="frequency"):
+        self.sheet_name = sheet_name
+        adapter: ModelAdapter = ModelAdapter(HealthRecord, {
+            "id": self.KEY_ID,
+            "vocabulary": self.KEY_VOCABULARY,
+            "times": self.KEY_TIME,
+            "level": self.KEY_LEVEL,
+            "eiken_level": self.KEY_EIKEN_LEVEL,
+            "school_level": self.KEY_SCHOOL_LEVEL,
+            "toeic_level": self.KEY_TOEIC_LEVEL})
+        super().__init__(self.sheet_name, self.COLUMNS, adapter)
 
     @classmethod
     def format_data(cls, record):
