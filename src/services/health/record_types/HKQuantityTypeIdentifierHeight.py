@@ -1,2 +1,3 @@
 class HKQuantityTypeIdentifierHeightService:
-    pass
+    def process(self, attributes: dict):
+        pass

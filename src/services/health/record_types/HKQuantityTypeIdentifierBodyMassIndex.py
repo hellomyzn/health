@@ -1,2 +1,4 @@
 class HKQuantityTypeIdentifierBodyMassIndexService():
-    pass
+
+    def process(self, attributes: dict):
+        pass

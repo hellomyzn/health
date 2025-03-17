@@ -3,6 +3,7 @@
 # Builtin packages
 #########################################################
 import csv
+import os
 import sys
 from dataclasses import dataclass, field
 
@@ -35,6 +36,10 @@ class CsvBase(BaseRepositoryInterface):
         Returns:
             list: all data from csv
         """
+        if not os.path.isfile(self.path):
+            # ファイルが存在しない場合はヘッダーを書き込み、空リストを返す
+            self.__write_header()
+            return []
         if not self.__has_header():
             self.__write_header()
 
@@ -44,28 +49,31 @@ class CsvBase(BaseRepositoryInterface):
         return all_data
 
     def find_by_id(self, id_: int) -> dict:
-        all_data = self.all()
-        for data in all_data:
+        for data in self.all():
             try:
-                if int(data["id"]) == int(id_):
+                if int(data.get("id", -1)) == int(id_):
                     return data
-            except KeyError:
-                return None
+            except (KeyError, ValueError):
+                continue
         return None
 
     def write(self, data: list[Model,], path: str | None = None) -> None:
-        if path is None:
-            path = self.path
+        """データ（Modelオブジェクトのリスト）をCSVファイルへ書き込む"""
 
-        with open(file=path, mode="w", encoding="utf-8", newline='') as csvfile:
+        target_path = path if path is not None else self.path
+
+        with open(file=target_path, mode="w", encoding="utf-8", newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=self.header)
             writer.writeheader()
             for model in data:
                 dict_ = self.adapter.from_model(model)
                 writer.writerow(dict_)
+        info("Wrote data to CSV file: {}", target_path)
 
     def add(self, data: dict) -> None:
         """add data into the csv file
+        1件分のレコードをCSVファイルへ追記する
+
 
         Args:
             data (dict): data to add
@@ -94,8 +102,9 @@ class CsvBase(BaseRepositoryInterface):
             header = reader.fieldnames
             if header is None:
                 warn("header is None in the csv file({0}).", self.path)
-            elif header != self.header:
-                error("invalid header in the csv file({0}): {1}, expected header: {2}",
+
+            if header != self.header:
+                error("Invalid header in CSV file: {}. Found: {}, Expected: {}",
                       self.path, header, self.header)
                 sys.exit(1)
 
@@ -107,5 +116,5 @@ class CsvBase(BaseRepositoryInterface):
         with open(self.path, encoding="utf-8", mode="w") as file:
             writer_ = csv.DictWriter(file, fieldnames=self.header)
             writer_.writeheader()
-            info(f"write header in the csv file({0}). header: {1}",
-                 self.path, self.header)
+        info(f"write header in the csv file({0}). header: {1}",
+             self.path, self.header)

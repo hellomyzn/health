@@ -7,10 +7,10 @@ from models.model import Model
 @dataclass
 class HealthBase(Model):
     KEY_ID = "id"
-    KEY_SOURCE_NAME = "source_name"
-    KEY_CREATION_DATE = "creation_date"
-    KEY_START_DATE = "start_date"
-    KEY_END_DATE = "end_date"
+    KEY_SOURCE_NAME = "sourceName"
+    KEY_CREATION_DATE = "creationDate"
+    KEY_START_DATE = "startDate"
+    KEY_END_DATE = "endDate"
     KEY_DURATION = "duration"
     KEY_UNIT = "unit"
     KEY_VALUE = "value"
@@ -68,9 +68,21 @@ class HealthBase(Model):
         data = {
             self.KEY_ID: self.id,
             self.KEY_SOURCE_NAME: self.source_name,
-            self.KEY_CREATION_DATE: self.creation_date.strftime("%Y-%m-%d %H:%M:%S %z") if self.creation_date else None,
-            self.KEY_START_DATE: self.start_date.strftime("%Y-%m-%d %H:%M:%S %z") if self.start_date else None,
-            self.KEY_END_DATE: self.end_date.strftime("%Y-%m-%d %H:%M:%S %z") if self.end_date else None,
+            self.KEY_CREATION_DATE: (
+                self.creation_date.strftime("%Y-%m-%d %H:%M:%S %z")
+                if isinstance(self.creation_date, datetime)
+                else self.creation_date
+            ),
+            self.KEY_START_DATE: (
+                self.start_date.strftime("%Y-%m-%d %H:%M:%S %z")
+                if isinstance(self.start_date, datetime)
+                else self.start_date
+            ),
+            self.KEY_END_DATE: (
+                self.end_date.strftime("%Y-%m-%d %H:%M:%S %z")
+                if isinstance(self.end_date, datetime)
+                else self.end_date
+            ),
             self.KEY_DURATION: self.duration,
             self.KEY_UNIT: self.unit,
             self.KEY_VALUE: self.value

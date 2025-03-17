@@ -1,3 +1,4 @@
 """repositories"""
 
 from repositories.health.record_types.HKQuantityTypeIdentifierBodyMass.gss import GssHKQuantityTypeIdentifierBodyMassRepository
+from repositories.health.record_types.HKQuantityTypeIdentifierBodyMass.csv import CsvHKQuantityTypeIdentifierBodyMassRepository

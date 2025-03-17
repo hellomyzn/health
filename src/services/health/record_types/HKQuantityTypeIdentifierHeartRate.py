@@ -1,2 +1,3 @@
 class HKQuantityTypeIdentifierHeartRateService():
-    pass
+    def process(self, attributes: dict):
+        pass

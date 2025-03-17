@@ -27,6 +27,7 @@ CONFIG = Config().config
 SHEET_KEY = CONFIG["GSS"]["SHEET_KEY"]
 IS_OFFLINE = CONFIG["APP"]["OFFLINE"]
 
+
 class GSSBase(BaseRepositoryInterface):
     """Googleスプレッドシートの基本操作（CRUD）を提供するベースクラス"""
 
@@ -40,9 +41,6 @@ class GSSBase(BaseRepositoryInterface):
             self.gss = GssAccessor()
             self.update_sheet_name(sheet_name)
             # self.gda = GDriveAccessor()
-
-            if not self.__has_columns():
-                self.__write_columns()
 
     @gss_module
     def update_sheet_name(self, sheet_name: str):
@@ -119,6 +117,7 @@ class GSSBase(BaseRepositoryInterface):
         """
         columns = self.worksheet.row_values(1)
         time.sleep(1)
+        print(bool(columns == self.columns))
         return bool(columns == self.columns)
 
     def __write_columns(self) -> None:

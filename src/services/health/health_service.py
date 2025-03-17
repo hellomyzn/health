@@ -8,6 +8,8 @@ except ImportError:
 from datetime import datetime, timezone, timedelta
 from tqdm import tqdm
 
+from services.health.record_types import SERVICE_MAPPING
+
 JST = timezone(timedelta(hours=9))
 
 
@@ -92,12 +94,28 @@ class HealthService:
                         start_date = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
                         # ここでは、XML要素の属性をそのままCSV保存用データとする
                         data = {k: v for k, v in elem.attrib.items()}
+                        # endDateが存在する場合、durationを計算してdataに追加
+                        end_date_str = elem.get("endDate")
+                        if end_date_str:
+                            end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
+                            duration = (end_date - start_date).total_seconds()
+                            data["duration"] = duration
+
+                        service_cls = SERVICE_MAPPING.get(record_type)
+                        if service_cls is None:
+                            pass
+                            # print(f"⚠️ 対応するサービスが見つかりません: {record_type}")
+                        else:
+                            service_instance = service_cls()
+                            print(service_instance)
+                            service_instance.process(data)
+
                         # 必要に応じてMetadataEntryの情報を連結するなどの加工も可能
-                        record = {
-                            "record_type": record_type,
-                            "start_date": start_date,
-                            "data": data
-                        }
-                        save_record_to_csv(record)
+                        # record = {
+                        #     "record_type": record_type,
+                        #     "start_date": start_date,
+                        #     "data": data
+                        # }
+                        # save_record_to_csv(record)
                     # メモリ節約のため、処理済み要素をクリア
                     elem.clear()
