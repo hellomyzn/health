@@ -23,6 +23,5 @@ class HealthController:
 
     def process_health_data(self, xml_file):
         """XMLデータを処理"""
-        # self.service.parse_and_save(xml_file)
-        self.service.hoge()
+        self.service.parse_and_save(xml_file)
         print("✅ XML解析 & 保存完了！")

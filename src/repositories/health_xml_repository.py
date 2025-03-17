@@ -1,7 +1,7 @@
 import os
 from datetime import timezone, timedelta
 from xml.etree.ElementTree import Element, tostring
-from models import HealthRecord
+# from models import HealthRecord
 
 JST = timezone(timedelta(hours=9))
 XML_OUTPUT_DIR = "src/xml"
@@ -13,7 +13,7 @@ class HealthXMLRepository:
     def __init__(self):
         os.makedirs(XML_OUTPUT_DIR, exist_ok=True)
 
-    def save(self, record: HealthRecord):
+    def save(self, record):
         """HealthRecord をXMLファイルに保存"""
         year = record.start_date.astimezone(JST).year
         year_dir = os.path.join(XML_OUTPUT_DIR, str(year))

@@ -1,0 +1,2 @@
+class HKQuantityTypeIdentifierBodyMassService():
+    pass

@@ -1,12 +1,12 @@
 from repositories import GSSBase
 from repositories.model_adapter import ModelAdapter
-from models.health import HKCategoryTypeIdentifierAppleStandHour as model
+from models.health.record_types import HKQuantityTypeIdentifierBodyMass as model
 
 
-class GssHKCategoryTypeIdentifierAppleStandHourRepository(GSSBase):
-    """GssHKCategoryTypeIdentifierAppleStandHourRepository"""
+class GssHKQuantityTypeIdentifierBodyMassRepository(GSSBase):
+    """GssHKQuantityTypeIdentifierBodyMassRepository"""
 
-    SHEET_NAME = "HKCategoryTypeIdentifierAppleStandHour"
+    SHEET_NAME = "BodyMass"
 
     def __init__(self, sheet_name: str = SHEET_NAME):
         columns = model.get_columns()

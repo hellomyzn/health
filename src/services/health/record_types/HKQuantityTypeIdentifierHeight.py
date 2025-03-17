@@ -1,0 +1,2 @@
+class HKQuantityTypeIdentifierHeightService:
+    pass

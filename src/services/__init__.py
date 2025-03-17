@@ -1,2 +1,2 @@
 """services"""
-from services.health_service import HealthService
+from services.health.health_service import HealthService

@@ -1,0 +1,2 @@
+class HKQuantityTypeIdentifierHeartRateService():
+    pass
