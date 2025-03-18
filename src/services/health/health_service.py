@@ -81,6 +81,9 @@ class HealthService:
         total_size = os.path.getsize(xml_file)
         print(f"🔍 処理対象ファイルサイズ: {total_size / (1024*1024):.2f} MB")
 
+        # record_type（サービス）毎にレコード（辞書）をまとめる辞書を用意
+        grouped_records = {}
+
         with open(xml_file, 'rb') as f:
             with tqdm(total=total_size, desc="Processing Records", unit="B", unit_scale=True) as pbar:
                 file_with_progress = FileWithProgress(f, pbar)
@@ -102,7 +105,6 @@ class HealthService:
                         creation_date = datetime.strptime(creation_date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
                         start_date = datetime.strptime(start_date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
                         end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
-                        # endDateが存在する場合、durationを計算してdataに追加
                         duration = (end_date - start_date).total_seconds()
 
                         data = {
@@ -116,20 +118,14 @@ class HealthService:
                             "value": value
                         }
 
-                        service_cls = SERVICE_MAPPING.get(record_type)
-                        if service_cls is None:
-                            pass
-                            print(f"⚠️ 対応するサービスが見つかりません: {record_type}")
-                        else:
-                            service_instance = service_cls()
-                            service_instance.process(data)
+                        grouped_records.setdefault(record_type, []).append(data)
+                        elem.clear()
 
-                        # 必要に応じてMetadataEntryの情報を連結するなどの加工も可能
-                        # record = {
-                        #     "record_type": record_type,
-                        #     "start_date": start_date,
-                        #     "data": data
-                        # }
-                        # save_record_to_csv(record)
-                    # メモリ節約のため、処理済み要素をクリア
-                    elem.clear()
+        for record_type, records in grouped_records.items():
+            service_cls = SERVICE_MAPPING.get(record_type)
+            if service_cls is None:
+                print(f"⚠️ 対応するサービスが見つかりません: {record_type}")
+                continue
+            service_instance = service_cls()
+            # ここで process() を、複数件処理できるように（例：リストを受け取るように）実装
+            service_instance.process(records)

@@ -2,7 +2,7 @@
 #########################################################
 # Builtin packages
 #########################################################
-from services import HealthService
+from services.health import HealthService
 
 #########################################################
 # 3rd party packages

@@ -32,7 +32,6 @@ class GSSBase(BaseRepositoryInterface):
     """Googleスプレッドシートの基本操作（CRUD）を提供するベースクラス"""
 
     def __init__(self, sheet_name, columns, adapter):
-        print("hoge")
         self.sheet_name = sheet_name
         self.columns = columns
         self.adapter = adapter
@@ -123,7 +122,6 @@ class GSSBase(BaseRepositoryInterface):
         """
         columns = self.worksheet.row_values(1)
         time.sleep(1)
-        print(bool(columns == self.columns))
         return bool(columns == self.columns)
 
     def __write_columns(self) -> None:

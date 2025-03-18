@@ -1,10 +1,10 @@
-from repositories import GSSBase
+from repositories.health import HealthGssBase
 from repositories.model_adapter import ModelAdapter
 from models.health.record_types import HKQuantityTypeIdentifierBodyMass as model
 from utils import SingletonMeta
 
 
-class GssHKQuantityTypeIdentifierBodyMassRepository(GSSBase, metaclass=SingletonMeta):
+class GssHKQuantityTypeIdentifierBodyMassRepository(HealthGssBase, metaclass=SingletonMeta):
     """GssHKQuantityTypeIdentifierBodyMassRepository
 
     このクラスは SingletonMeta をメタクラスとして指定しているため、

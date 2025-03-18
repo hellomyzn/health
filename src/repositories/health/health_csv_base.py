@@ -23,13 +23,16 @@ class HealthCsvBase(CsvBase):
         data は辞書形式で、少なくとも "startDate" キー（"%Y-%m-%d %H:%M:%S %z"形式の文字列）を持つものとする。
         その年のディレクトリに CSV を追記する。
         """
-        start_date_str = data.get("startDate")
-        if start_date_str:
+
+        start_date = data.get("start_date")
+        if isinstance(start_date, str):
             try:
-                dt = datetime.datetime.strptime(start_date_str, "%Y-%m-%d %H:%M:%S %z")
+                dt = datetime.datetime.strptime(start_date, "%Y-%m-%d %H:%M:%S %z")
                 year = dt.year
             except Exception:
                 year = "unknown"
+        elif isinstance(start_date, datetime.datetime):
+            year = dt.year
         else:
             year = "unknown"
 
