@@ -5,11 +5,10 @@ from services.health.health_record_base_service import HealthRecordBaseService
 from repositories.health.record_types.HKQuantityTypeIdentifierBodyMass import (
     GssHKQuantityTypeIdentifierBodyMassRepository,
     CsvHKQuantityTypeIdentifierBodyMassRepository)
-from utils import Singleton
+from utils import SingletonMeta
 
 
-# TODO: SingletonMetaにする必要ある？
-class HKQuantityTypeIdentifierBodyMassService(Singleton, HealthRecordBaseService):
+class HKQuantityTypeIdentifierBodyMassService(HealthRecordBaseService, metaclass=SingletonMeta):
     """体重（BodyMass）のレコードを処理するサービス"""
 
     def __init__(self):

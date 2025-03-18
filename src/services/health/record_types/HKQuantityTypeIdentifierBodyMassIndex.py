@@ -5,10 +5,10 @@ from services.health.health_record_base_service import HealthRecordBaseService
 from repositories.health.record_types.HKQuantityTypeIdentifierBodyMassIndex import (
     GssHKQuantityTypeIdentifierBodyMassIndexRepository,
     CsvHKQuantityTypeIdentifierBodyMassIndexRepository)
-from utils import Singleton
+from utils import SingletonMeta
 
 
-class HKQuantityTypeIdentifierBodyMassIndexService(Singleton, HealthRecordBaseService):
+class HKQuantityTypeIdentifierBodyMassIndexService(HealthRecordBaseService, metaclass=SingletonMeta):
 
     def __init__(self):
         self.model_cls = HKQuantityTypeIdentifierBodyMassIndex
