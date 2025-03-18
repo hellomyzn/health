@@ -3,6 +3,7 @@
 # Builtin packages
 #########################################################
 from dataclasses import dataclass, field
+from datetime import datetime
 
 #########################################################
 # 3rd party packages
@@ -13,6 +14,7 @@ from dataclasses import dataclass, field
 # Own packages
 #########################################################
 from models import Model
+
 
 @dataclass
 class ModelAdapter(object):
@@ -41,8 +43,9 @@ class ModelAdapter(object):
         result = []
         for _, key in self.key_map.items():
             value = getattr(model, key)
+            if isinstance(value, datetime):
+                value = value.strftime("%Y-%m-%d %H:%M:%S %z")
             result.append(value)
-
         return result
 
     def to_model(self, data_from_db: dict) -> Model:

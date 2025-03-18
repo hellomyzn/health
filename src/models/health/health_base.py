@@ -7,10 +7,10 @@ from models.model import Model
 @dataclass
 class HealthBase(Model):
     KEY_ID = "id"
-    KEY_SOURCE_NAME = "sourceName"
-    KEY_CREATION_DATE = "creationDate"
-    KEY_START_DATE = "startDate"
-    KEY_END_DATE = "endDate"
+    KEY_SOURCE_NAME = "source_name"
+    KEY_CREATION_DATE = "creation_date"
+    KEY_START_DATE = "start_date"
+    KEY_END_DATE = "end_date"
     KEY_DURATION = "duration"
     KEY_UNIT = "unit"
     KEY_VALUE = "value"
@@ -42,10 +42,10 @@ class HealthBase(Model):
         """to_dict の変換マッピングを返す（リポジトリ側のキーと対応付け）"""
         return {
             "id": cls.KEY_ID,
-            "sourceName": cls.KEY_SOURCE_NAME,
-            "creationDate": cls.KEY_CREATION_DATE,
-            "startDate": cls.KEY_START_DATE,
-            "endDate": cls.KEY_END_DATE,
+            "source_name": cls.KEY_SOURCE_NAME,
+            "creation_date": cls.KEY_CREATION_DATE,
+            "start_date": cls.KEY_START_DATE,
+            "end_date": cls.KEY_END_DATE,
             "duration": cls.KEY_DURATION,
             "unit": cls.KEY_UNIT,
             "value": cls.KEY_VALUE

@@ -19,6 +19,6 @@ class HKQuantityTypeIdentifierBodyMassService(Singleton):
         model_instance = self.model_cls.from_dict(attributes)
         # 保存処理例：
         # Google Sheets への保存
-        # self.gss_repo.add([model_instance])
+        self.gss_repo.add([model_instance])
         # CSV への保存（CSVリポジトリは dict 形式を受け取る場合の例）
         self.csv_repo.add(model_instance.to_dict(without_none_field=True))

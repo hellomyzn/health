@@ -32,6 +32,7 @@ class GSSBase(BaseRepositoryInterface):
     """Googleスプレッドシートの基本操作（CRUD）を提供するベースクラス"""
 
     def __init__(self, sheet_name, columns, adapter):
+        print("hoge")
         self.sheet_name = sheet_name
         self.columns = columns
         self.adapter = adapter
@@ -40,7 +41,6 @@ class GSSBase(BaseRepositoryInterface):
         if not IS_OFFLINE:
             self.gss = GssAccessor()
             self.update_sheet_name(sheet_name)
-            # self.gda = GDriveAccessor()
 
     @gss_module
     def update_sheet_name(self, sheet_name: str):
@@ -50,8 +50,14 @@ class GSSBase(BaseRepositoryInterface):
         except gspread.exceptions.WorksheetNotFound as exp:
             warn("sheet doens't exist.: {0}", sheet_name)
             raise exp
-        if not self.__has_columns():
-            self.__write_columns()
+
+        # ヘッダーが未チェックの場合のみチェックを行う
+        if not getattr(self, "_columns_checked", False):
+            if not self.__has_columns():
+                self.__write_columns()
+            self._columns_checked = True
+        # if not self.__has_columns():
+        #     self.__write_columns()
 
     def all(self) -> list:
         pass

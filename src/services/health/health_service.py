@@ -86,28 +86,42 @@ class HealthService:
                 file_with_progress = FileWithProgress(f, pbar)
                 # iterparse でXMLを逐次処理
                 context = ET.iterparse(file_with_progress, events=("start",))
-                for event, elem in context:
+                for _, elem in context:
                     if elem.tag == "Record":
                         record_type = elem.get("type")
-                        date_str = elem.get("startDate")
-                        # 日時文字列をパースし、日本時間に変換
-                        start_date = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
-                        # ここでは、XML要素の属性をそのままCSV保存用データとする
-                        data = {k: v for k, v in elem.attrib.items()}
-                        # endDateが存在する場合、durationを計算してdataに追加
+                        id_ = None
+                        source_name = elem.get("sourceName")
+                        creation_date_str = elem.get("creationDate")
+                        start_date_str = elem.get("startDate")
                         end_date_str = elem.get("endDate")
-                        if end_date_str:
-                            end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
-                            duration = (end_date - start_date).total_seconds()
-                            data["duration"] = duration
+                        unit = elem.get("unit")
+                        duration = None
+                        value = elem.get("value")
+
+                        # 日時文字列をパースし、日本時間に変換
+                        creation_date = datetime.strptime(creation_date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
+                        start_date = datetime.strptime(start_date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
+                        end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M:%S %z").astimezone(JST)
+                        # endDateが存在する場合、durationを計算してdataに追加
+                        duration = (end_date - start_date).total_seconds()
+
+                        data = {
+                            "id": id_,
+                            "source_name": source_name,
+                            "creation_date": creation_date,
+                            "start_date": start_date,
+                            "end_date": end_date,
+                            "unit": unit,
+                            "duration": duration,
+                            "value": value
+                        }
 
                         service_cls = SERVICE_MAPPING.get(record_type)
                         if service_cls is None:
                             pass
-                            # print(f"⚠️ 対応するサービスが見つかりません: {record_type}")
+                            print(f"⚠️ 対応するサービスが見つかりません: {record_type}")
                         else:
                             service_instance = service_cls()
-                            print(service_instance)
                             service_instance.process(data)
 
                         # 必要に応じてMetadataEntryの情報を連結するなどの加工も可能
