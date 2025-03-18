@@ -22,6 +22,28 @@ from common.exceptions import (
 )
 
 
+def __handle_error(exc: Exception) -> int:
+    """例外に応じた待機秒数を返すハンドラ
+
+    Args:
+        exc (Exception): 発生した例外
+
+    Returns:
+        int: 次のリトライまでの待機秒数
+    """
+    if isinstance(exc, requests.exceptions.ConnectionError):
+        warn("Connection error: {}: {}", exc.__class__.__name__, exc)
+        return 30
+    elif isinstance(exc, MyGssInvalidArgumentException):
+        return 5
+    elif isinstance(exc, MyGssResourceExhaustedException):
+        return 60
+    elif isinstance(exc, MyGssException):
+        return 1
+    else:
+        return 1  # 他の例外については最低限の待機
+
+
 def gss_module(func):
     """_summary_
 
@@ -36,27 +58,16 @@ def gss_module(func):
     """
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        attempts = 1
         max_attempts = 3
-        while attempts <= max_attempts:
+        for attempt in range(1, max_attempts + 1):
             try:
                 return func(*args, **kwargs)
-            except requests.exceptions.ConnectionError as exc:
-                sec = 30
-                warn("connection error. {0}: {1}", exc.__class__.__name__, exc)
-            except MyGssInvalidArgumentException:
-                sec = 5
-            except MyGssResourceExhaustedException:
-                sec = 60
-            except MyGssException:
-                sec = 1
-            attempts += 1
-            warn("wait {0} sec", sec)
-            time.sleep(sec)
-
-        # failed
-        mes = ("failed to connect to gss 3 times. "
-               "please check your internet connection or logs.")
-        error(mes)
-        raise MyGssException(mes)
+            except MyGssException as exc:
+                if attempt == max_attempts:
+                    mes = f"Failed to connect to gss after {attempt} attempts. Please check your connection or logs."
+                    error(mes)
+                    raise MyGssException(mes) from exc
+                wait_sec = __handle_error(exc)
+                warn("Attempt {0} failed; waiting {1} sec", attempt, wait_sec)
+                time.sleep(wait_sec)
     return wrapper
