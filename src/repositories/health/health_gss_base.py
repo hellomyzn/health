@@ -125,10 +125,8 @@ class HealthGssBase(GSSBase):
             warn("Sheet '{}' not found in spreadsheet with key: {}", sheet_name, sheet_key)
             raise exp
 
-        if not getattr(self, "_columns_checked", False):
-            if not self.__has_columns():
-                self.__write_columns()
-            self._columns_checked = True
+        if not self.__has_columns():
+            self.__write_columns()
 
     def __find_next_available_row(self) -> int:
         first_column_data = list(filter(None, self.worksheet.col_values(1)))

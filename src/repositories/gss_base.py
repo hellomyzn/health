@@ -52,8 +52,6 @@ class GSSBase(BaseRepositoryInterface):
 
         if not self.__has_columns():
             self.__write_columns()
-        # if not self.__has_columns():
-        #     self.__write_columns()
 
     def all(self) -> list:
         pass
