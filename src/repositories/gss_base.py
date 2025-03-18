@@ -86,47 +86,38 @@ class GSSBase(BaseRepositoryInterface):
             debug("data: {0}, row_num: {1}", len(inputs), row_num)
             self.worksheet.insert_rows(inputs, row_num)
         except gspread.exceptions.APIError as exc:
-            err_status = exc.response.json()["error"]["status"]
-            is_sheet_size_err = bool(err_status == "INVALID_ARGUMENT")
-            is_request_limit = bool(err_status == "RESOURCE_EXHAUSTED")
-            if is_sheet_size_err:
-                # no row to add new data in the sheet.
-                warn("sheet size(row) is not enough. {0}: {1}",
-                     exc.__class__.__name__, exc)
-                rows_to_add = 1000
-                self.worksheet.add_rows(rows_to_add)
-                info("added {0} rows in the sheet({1})", rows_to_add, self.sheet_name)
-                raise MyGssInvalidArgumentException(exc) from exc
-            if is_request_limit:
-                # request quota exceeded the limit
-                warn("gspread api error: request quota exceeded the limit. {0}: {1}",
-                     exc.__class__.__name__, exc)
-                raise MyGssResourceExhaustedException(exc) from exc
-            warn("gspread api error: please check log out. {0}: {1}",
-                 exc.__class__.__name__, exc)
-            raise MyGssException(exc) from exc
+            self.__handle_error(exc)
 
     def delete_by_id(self, id_: int) -> None:
         pass
 
+    @gss_module
     def __has_columns(self) -> bool:
         """check the sheet has columns or not
 
         Returns:
             bool: the sheet has columns or not
         """
-        columns = self.worksheet.row_values(1)
-        time.sleep(1)
-        return bool(columns == self.columns)
+        try:
+            columns = self.worksheet.row_values(1)
+            time.sleep(1)
+            return bool(columns == self.columns)
+        except gspread.exceptions.APIError as exc:
+            self.__handle_error(exc)
 
+    @gss_module
     def __write_columns(self) -> None:
         """write columns on the sheet
         """
-        self.worksheet.insert_row(self.columns, index=1)
-        info("added columns in the gss({0}). value: {1}",
-             self.sheet_name, self.columns)
-        time.sleep(1)
+        try:
+            self.worksheet.insert_row(self.columns, index=1)
+            info("added columns in the gss({0}). value: {1}",
+                 self.sheet_name, self.columns)
+            time.sleep(1)
+        except gspread.exceptions.APIError as exc:
+            self.__handle_error(exc)
 
+    @gss_module
     def __find_next_available_row(self) -> int:
         """ Find a next available row on GSS
             This is for confirming from which row is available
@@ -135,8 +126,30 @@ class GSSBase(BaseRepositoryInterface):
         Returns:
             int: _description_
         """
-        # it is a list which contains all data on first column
-        fist_column_data = list(filter(None, self.worksheet.col_values(1)))
-        time.sleep(1)
-        available_row = int(len(fist_column_data)) + 1
-        return available_row
+        try:
+            # it is a list which contains all data on first column
+            fist_column_data = list(filter(None, self.worksheet.col_values(1)))
+            time.sleep(1)
+            available_row = int(len(fist_column_data)) + 1
+            return available_row
+        except gspread.exceptions.APIError as exc:
+            self.__handle_error(exc)
+
+    def __handle_error(self, exc):
+        err_status = exc.response.json()["error"]["status"]
+
+        is_sheet_size_err = bool(err_status == "INVALID_ARGUMENT")
+        is_request_limit = bool(err_status == "RESOURCE_EXHAUSTED")
+
+        if is_sheet_size_err:
+            warn("Sheet size is not enough for sheet {0}: {1}: {2}", self.sheet_name, exc.__class__.__name__, exc)
+            rows_to_add = 1000
+            self.worksheet.add_rows(rows_to_add)
+            info("added {0} rows in the sheet({1})", rows_to_add, self.sheet_name)
+            raise MyGssInvalidArgumentException(exc) from exc
+        elif is_request_limit:
+            warn("Request quota exceeded for sheet {0}: {1}: {2}", self.sheet_name, exc.__class__.__name__, exc)
+            raise MyGssResourceExhaustedException(exc) from exc
+        else:
+            warn("Gspread API error for sheet {0}: {1}: {2}", self.sheet_name, exc.__class__.__name__, exc)
+            raise MyGssException(exc) from exc
