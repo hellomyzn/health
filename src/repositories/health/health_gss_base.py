@@ -74,8 +74,17 @@ class HealthGssBase(GSSBase):
 
             # 各 Model を adapter を使ってリスト形式に変換
             rows = []
+            # id 列がある場合、取得しておく（header の先頭に "id" がある前提）
+            if "id" in self.columns:
+                id_index = self.columns.index("id")
+                next_id = self.__get_next_id()
             for model in models:
                 row = self.adapter.from_model_to_list(model)
+                # id 列が空なら次の id をセット
+                if "id" in self.columns:
+                    if not row[id_index]:
+                        row[id_index] = next_id
+                        next_id += 1
                 rows.append(row)
 
             row_num = self.__find_next_available_row()
@@ -135,3 +144,23 @@ class HealthGssBase(GSSBase):
         self.worksheet.insert_row(self.columns, index=1)
         info("Added columns in spreadsheet (sheet: {}). Columns: {}", self.sheet_name, self.columns)
         time.sleep(1)
+
+    def __get_next_id(self) -> int:
+        """
+        シートの 1 列目（"id" 列）のデータを取得し、最新の id の次の番号を返す。
+        ヘッダー行は除外する。
+        """
+        values = self.worksheet.col_values(1)
+        # ヘッダーのみの場合は 1 を返す
+        if len(values) <= 1:
+            return 1
+        int_values = []
+        # 2 行目以降の値を数値に変換
+        for val in values[1:]:
+            try:
+                int_values.append(int(val))
+            except ValueError:
+                continue
+        if int_values:
+            return max(int_values) + 1
+        return 1

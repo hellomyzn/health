@@ -50,11 +50,8 @@ class GSSBase(BaseRepositoryInterface):
             warn("sheet doens't exist.: {0}", sheet_name)
             raise exp
 
-        # ヘッダーが未チェックの場合のみチェックを行う
-        if not getattr(self, "_columns_checked", False):
-            if not self.__has_columns():
-                self.__write_columns()
-            self._columns_checked = True
+        if not self.__has_columns():
+            self.__write_columns()
         # if not self.__has_columns():
         #     self.__write_columns()
 
