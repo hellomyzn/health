@@ -13,31 +13,6 @@ from services.health.record_types import SERVICE_MAPPING
 JST = timezone(timedelta(hours=9))
 
 
-def save_record_to_csv(record):
-    """
-    record は dict 形式で、下記のキーを持つものとする：
-      - "record_type": レコードのタイプ文字列
-      - "start_date": datetime 型（レコードの開始日時）
-      - "data": 辞書（CSVに保存するデータ）
-    """
-    year = record["start_date"].year
-    record_type = record["record_type"]
-    # 保存先ディレクトリ（例：output/2025）
-    directory = os.path.join("/opt/work/src/csv", str(year))
-    os.makedirs(directory, exist_ok=True)
-    # ファイルパス例：output/2025/HKQuantityTypeIdentifierHeight.csv
-    csv_file = os.path.join(directory, f"{record_type}.csv")
-
-    data = record["data"]
-    file_exists = os.path.isfile(csv_file)
-    with open(csv_file, mode="a", encoding="utf-8", newline="") as f:
-        # ヘッダーはdataのキーを利用（必要に応じて順序を調整）
-        writer = csv.DictWriter(f, fieldnames=list(data.keys()))
-        if not file_exists:
-            writer.writeheader()
-        writer.writerow(data)
-
-
 class FileWithProgress:
     """
     ファイルオブジェクトをラップし、read時にtqdmの進捗バーを更新するクラス
@@ -67,10 +42,7 @@ class FileWithProgress:
 class HealthService:
     """Apple Health のデータを処理するサービス（高速化対応版）"""
 
-    def __init__(self, use_google_sheets=False, spreadsheet_id=None):
-        # 今回はXMLからCSVに保存する例としてxml_repoのみ利用
-        # self.xml_repo = HealthXMLRepository()
-        # ここではGoogle Sheetsリポジトリは使用しない例とする
+    def __init__(self):
         pass
 
     def parse_and_save(self, xml_file):

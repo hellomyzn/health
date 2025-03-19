@@ -18,8 +18,8 @@ from services.health import HealthService
 class HealthController:
     """データ処理のエントリーポイント"""
 
-    def __init__(self, use_google_sheets=False, spreadsheet_id=None):
-        self.service = HealthService(use_google_sheets, spreadsheet_id)
+    def __init__(self):
+        self.service = HealthService()
 
     def process_health_data(self, xml_file):
         """XMLデータを処理"""
