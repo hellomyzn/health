@@ -91,7 +91,6 @@ class GSSBase(BaseRepositoryInterface):
     def delete_by_id(self, id_: int) -> None:
         pass
 
-    @gss_module
     def __has_columns(self) -> bool:
         """check the sheet has columns or not
 
@@ -105,7 +104,6 @@ class GSSBase(BaseRepositoryInterface):
         except gspread.exceptions.APIError as exc:
             self.__handle_error(exc)
 
-    @gss_module
     def __write_columns(self) -> None:
         """write columns on the sheet
         """
@@ -117,7 +115,6 @@ class GSSBase(BaseRepositoryInterface):
         except gspread.exceptions.APIError as exc:
             self.__handle_error(exc)
 
-    @gss_module
     def __find_next_available_row(self) -> int:
         """ Find a next available row on GSS
             This is for confirming from which row is available

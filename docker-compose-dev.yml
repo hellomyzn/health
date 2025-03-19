@@ -26,7 +26,7 @@ services:
       SSH_USER: root
       SSH_KEY_PATH: "/opt/ssh/id_rsa"
     networks:
-      - internal_network_dev
+      - internal_network
 
   # vscode:
   #   build:
@@ -72,9 +72,12 @@ services:
   #     internal_network_dev:
   #       ipv4_address: 172.20.0.10
 
+# networks:
+#   internal_network_dev:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 172.20.0.0/24
+
 networks:
-  internal_network_dev:
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.20.0.0/24
+  internal_network:
