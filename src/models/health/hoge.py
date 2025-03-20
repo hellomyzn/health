@@ -20,7 +20,7 @@ class Hoge(HealthBase):
         return base_map
 
     @classmethod
-    def from_dict(cls, d: dict) -> "HKCategoryTypeIdentifierAppleStandHour":
+    def from_dict(cls, d: dict) -> "AppleStandHour":
         # 親クラスから初期化した後、固有フィールドを上書き
         instance = super().from_dict(d)
         instance.hoge = d.get("hoge")

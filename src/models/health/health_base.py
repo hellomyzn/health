@@ -52,7 +52,7 @@ class HealthBase(Model):
         }
 
     @classmethod
-    def from_dict(cls, dict_: dict) -> "HKCategoryTypeIdentifierAppleStandHour":
+    def from_dict(cls, dict_: dict) -> "AppleStandHour":
         return cls(
             id=dict_.get(cls.KEY_ID),
             source_name=dict_.get(cls.KEY_SOURCE_NAME),

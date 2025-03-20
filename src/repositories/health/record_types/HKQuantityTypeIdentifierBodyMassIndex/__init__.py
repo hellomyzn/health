@@ -1,4 +1,0 @@
-"""repositories"""
-
-from repositories.health.record_types.HKQuantityTypeIdentifierBodyMassIndex.gss import GssHKQuantityTypeIdentifierBodyMassIndexRepository
-from repositories.health.record_types.HKQuantityTypeIdentifierBodyMassIndex.csv import CsvHKQuantityTypeIdentifierBodyMassIndexRepository

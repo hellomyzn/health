@@ -1,13 +1,13 @@
 """"""
 
-from .HKQuantityTypeIdentifierBodyMass import HKQuantityTypeIdentifierBodyMassService
-from .HKQuantityTypeIdentifierBodyMassIndex import HKQuantityTypeIdentifierBodyMassIndexService
-from .HKQuantityTypeIdentifierHeartRate import HKQuantityTypeIdentifierHeartRateService
-from .HKQuantityTypeIdentifierHeight import HKQuantityTypeIdentifierHeightService
+from .BodyMass import BodyMassService
+from .BodyMassIndex import BodyMassIndexService
+from .HeartRate import HeartRateService
+from .Height import HeightService
 
 SERVICE_MAPPING = {
-    "HKQuantityTypeIdentifierBodyMass": HKQuantityTypeIdentifierBodyMassService,
-    "HKQuantityTypeIdentifierBodyMassIndex": HKQuantityTypeIdentifierBodyMassIndexService,
-    "HKQuantityTypeIdentifierHeartRate": HKQuantityTypeIdentifierHeartRateService,
-    "HKQuantityTypeIdentifierHeight": HKQuantityTypeIdentifierHeightService,
+    "HKQuantityTypeIdentifierBodyMass": BodyMassService,
+    "HKQuantityTypeIdentifierBodyMassIndex": BodyMassIndexService,
+    "HKQuantityTypeIdentifierHeartRate": HeartRateService,
+    "HKQuantityTypeIdentifierHeight": HeightService,
 }

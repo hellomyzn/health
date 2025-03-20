@@ -1,6 +1,6 @@
 
-from models.health.record_types.HKCategoryTypeIdentifierAppleStandHour import HKCategoryTypeIdentifierAppleStandHour
-from models.health.record_types.HKQuantityTypeIdentifierBodyMass import HKQuantityTypeIdentifierBodyMass
-from models.health.record_types.HKQuantityTypeIdentifierBodyMassIndex import HKQuantityTypeIdentifierBodyMassIndex
-from models.health.record_types.HKQuantityTypeIdentifierHeartRate import HKQuantityTypeIdentifierHeartRate
-from models.health.record_types.HKQuantityTypeIdentifierHeight import HKCategoryTypeIdentifierAppleStandHour
+from models.health.record_types.AppleStandHour import AppleStandHour
+from models.health.record_types.BodyMass import BodyMass
+from models.health.record_types.BodyMassIndex import BodyMassIndex
+from models.health.record_types.HeartRate import HeartRate
+from models.health.record_types.Height import Height

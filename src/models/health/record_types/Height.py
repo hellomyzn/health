@@ -3,5 +3,5 @@ from models.health import HealthBase
 
 
 @dataclass
-class HKQuantityTypeIdentifierHeartRate(HealthBase):
+class Height(HealthBase):
     pass

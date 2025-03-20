@@ -1,17 +1,17 @@
 from repositories.health import HealthGssBase
 from repositories.model_adapter import ModelAdapter
-from models.health.record_types import HKQuantityTypeIdentifierBodyMass as model
+from models.health.record_types import BodyMassIndex as model
 from utils import SingletonMeta
 
 
-class GssHKQuantityTypeIdentifierBodyMassRepository(HealthGssBase, metaclass=SingletonMeta):
-    """GssHKQuantityTypeIdentifierBodyMassRepository
+class GssBodyMassIndexRepository(HealthGssBase, metaclass=SingletonMeta):
+    """GssHKQuantityTypeIdentifierBodyMassIndexRepository
 
     このクラスは SingletonMeta をメタクラスとして指定しているため、
     初回のインスタンス生成時のみ __init__ が実行され、以降は同じインスタンスが再利用されます。
     """
 
-    SHEET_NAME = "BodyMass"
+    SHEET_NAME = "BodyMassIndex"
 
     def __init__(self):
         # この __init__ は初回のみ実行される

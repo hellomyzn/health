@@ -27,8 +27,8 @@ class HealthRecordBaseService(ABC):
         # 各辞書からモデルインスタンスを生成
         model_instances = [self.model_cls.from_dict(data) for data in records]
 
-        # 例：Google Sheets に一括で保存
-        self.gss_repo.add(model_instances)
+        # # 例：Google Sheets に一括で保存
+        # self.gss_repo.add(model_instances)
 
         # CSV への保存は、各レコードごとに行う（リポジトリ側でバッチ処理に変更することも可能）
         for instance in model_instances:

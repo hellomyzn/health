@@ -3,5 +3,5 @@ from models.health import HealthBase
 
 
 @dataclass
-class HKQuantityTypeIdentifierBodyMassIndex(HealthBase):
+class AppleStandHour(HealthBase):
     pass
