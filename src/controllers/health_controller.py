@@ -21,7 +21,7 @@ class HealthController:
     def __init__(self):
         self.service = HealthService()
 
-    def process_health_data(self, xml_file):
+    def process_health_data(self):
         """XMLデータを処理"""
-        self.service.parse_and_save(xml_file)
+        self.service.parse_and_save()
         print("✅ XML解析 & 保存完了！")

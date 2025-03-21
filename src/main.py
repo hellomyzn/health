@@ -3,12 +3,10 @@ from controllers import HealthController
 
 
 def main():
-    initialize_logger()
-
-    input_file = "src/apple_health_export/export.xml"
+    # initialize_logger()
 
     controller = HealthController()
-    controller.process_health_data(input_file)
+    controller.process_health_data()
 
 
 if __name__ == "__main__":
