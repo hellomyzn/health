@@ -5,7 +5,7 @@ from xml.etree.ElementTree import Element, tostring
 from tqdm import tqdm
 
 JST = timezone(timedelta(hours=9))
-INPUT_FILE = "src/apple_health_export/export.xml"
+INPUT_FILE = "src/apple_health_export/hoge.xml"
 XML_OUTPUT_DIR = "src/xml"
 
 
@@ -60,6 +60,7 @@ class HealthXMLRepository:
 
 
                         # TODO xml repoを作成する
+                        # そもそもxmlを小分けにして保存しなくても良いからいらない処理
                         attr = {k: v for k, v in elem.attrib.items() }
                         metadatas = [
                             {k: v for k, v in meta.attrib.items()} for meta in elem.findall("MetadataEntry")
