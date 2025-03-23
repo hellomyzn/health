@@ -1,6 +1,6 @@
 """common.logging"""
 from .custom_formatter import CustomFormatter
-from .log import (
+from common.log.log import (
     log,
     debug,
     info,

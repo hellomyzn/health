@@ -30,7 +30,7 @@ class CsvBase(BaseRepositoryInterface):
     header: list = field(init=True, default_factory=list)
     adapter: ModelAdapter = field(init=True, default=None)
 
-    def all(self) -> list:
+    def all(self) -> list[dict,]:
         """get all data from csv
 
         Returns:

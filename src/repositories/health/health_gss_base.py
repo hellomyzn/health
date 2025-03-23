@@ -1,11 +1,11 @@
 # src/repositories/health/health_gss_base.py
 
-import datetime
 import time
 import gspread
 from repositories.gss_base import GSSBase
 from common.config import Config
 from common.log import info, warn, debug
+from utils.datetime_parser import DatetimeParser
 
 CONFIG = Config().config
 
@@ -51,17 +51,7 @@ class HealthGssBase(GSSBase):
         for model in data:
             record = model.to_dict(without_none_field=True)
             start_date = record.get("start_date")
-            if isinstance(start_date, str):
-                try:
-                    dt = datetime.datetime.strptime(start_date, "%Y-%m-%d %H:%M:%S %z")
-                    year = dt.year
-                except Exception:
-                    warn("Invalid start_date format: {}. Using 'unknown'", start_date)
-                    year = "unknown"
-            elif isinstance(start_date, datetime.datetime):
-                year = start_date.year
-            else:
-                year = "unknown"
+            year = DatetimeParser.extract_year(start_date)
             records_by_year.setdefault(year, []).append(model)
 
         # 年ごとにSpreadsheetへ一括追加
@@ -128,21 +118,6 @@ class HealthGssBase(GSSBase):
         if not self.__has_columns():
             self.__write_columns()
 
-    def __find_next_available_row(self) -> int:
-        first_column_data = list(filter(None, self.worksheet.col_values(1)))
-        time.sleep(1)
-        return len(first_column_data) + 1
-
-    def __has_columns(self) -> bool:
-        columns = self.worksheet.row_values(1)
-        time.sleep(1)
-        return bool(columns == self.columns)
-
-    def __write_columns(self) -> None:
-        self.worksheet.insert_row(self.columns, index=1)
-        info("Added columns in spreadsheet (sheet: {}). Columns: {}", self.sheet_name, self.columns)
-        time.sleep(1)
-
     def __get_next_id(self) -> int:
         """
         シートの 1 列目（"id" 列）のデータを取得し、最新の id の次の番号を返す。
@@ -153,6 +128,7 @@ class HealthGssBase(GSSBase):
         if len(values) <= 1:
             return 1
         int_values = []
+        # TODO: ここはfor 文じゃなくて、value[-1]とかの方が良さそう。
         # 2 行目以降の値を数値に変換
         for val in values[1:]:
             try:

@@ -18,4 +18,4 @@ class CsvBodyMassIndexRepository(HealthCsvBase, metaclass=SingletonMeta):
         columns = model.get_columns()
         key_map = model.get_key_map()
         adapter = ModelAdapter(model=model, key_map=key_map)
-        super().__init__(path="", header=columns, adapter=adapter)
+        super().__init__(path=self.FILE_NAME, header=columns, adapter=adapter)

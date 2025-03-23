@@ -16,7 +16,6 @@ from zoneinfo import ZoneInfo
 # Own packages
 #########################################################
 
-
 @dataclass
 class DatetimeParser(object):
     """class to decode and encode"""
@@ -108,3 +107,20 @@ class DatetimeParser(object):
         if datetime_ is None:
             return None
         return int(datetime_.replace().timestamp())
+
+    @classmethod
+    def extract_year(cls, datetime_: datetime | str) -> str:
+        """ """
+        if isinstance(datetime_, str):
+            try:
+                dt = datetime.strptime(datetime_, "%Y-%m-%d %H:%M:%S %z")
+                year = dt.year
+            except Exception:
+                # warn("Invalid start_date format: {}. Using 'unknown'", start_date)
+                year = "unknown"
+        elif isinstance(datetime_, datetime):
+            year = datetime_.year
+        else:
+            year = "unknown"
+
+        return year

@@ -1,10 +1,5 @@
 import os
 from lxml import etree as ET
-# try:
-#     # lxml がインストールされていれば高速にパースできる
-#     from lxml import etree as ET
-# except ImportError:
-#     import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 from xml.etree.ElementTree import Element, tostring
 from tqdm import tqdm
