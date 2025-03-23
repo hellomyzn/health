@@ -1,4 +1,4 @@
-from services.health.record_types import SERVICE_MAPPING
+from services.health import HealthFactory
 from repositories import HealthXMLRepository
 
 class HealthService:
@@ -17,10 +17,10 @@ class HealthService:
 
         for record_type, records in health_data.items():
 
-            service_cls = SERVICE_MAPPING.get(record_type)
-            if service_cls is None:
+            try:
+                service_instance = HealthFactory.create(record_type)
+            except ValueError as exc:
                 print(f"⚠️ 対応するサービスが見つかりません: {record_type}")
                 continue
-            service_instance = service_cls()
             # ここで process() を、複数件処理できるように（例：リストを受け取るように）実装
             service_instance.process(records)

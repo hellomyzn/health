@@ -31,5 +31,7 @@ class HealthRecordBaseService(ABC):
         # self.gss_repo.add(model_instances)
 
         # CSV への保存は、各レコードごとに行う（リポジトリ側でバッチ処理に変更することも可能）
-        for instance in model_instances:
-            self.csv_repo.add(instance.to_dict(without_none_field=True))
+        # for instance in model_instances:
+        #     self.csv_repo.add(instance.to_dict(without_none_field=True))
+
+        self.csv_repo.add(model_instances)
